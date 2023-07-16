@@ -2,7 +2,7 @@ import path from 'path'
 import {fileURLToPath} from 'url'
 import { createServer } from 'http'
 import express from 'express'
-import socketio from 'socket.io'
+import {Server} from 'socket.io'
 import Filter from 'bad-words'
 import { generateMessage, generateLocationMessage } from './utils/messages.js'
 import { addUser, removeUser, getUser, getUsersInRoom } from './utils/users.js'
@@ -13,10 +13,10 @@ const __dirname = path.dirname(__filename)
 
 const app = express()
 const server = createServer(app)  //creating express server by http
-const io = socketio(server)  //server now supports websockets
+const io = new Server(server)  //server now supports websockets
 
 const port = process.env.PORT || 3000
-const publicDirectoryPath = join(__dirname, '../public')
+const publicDirectoryPath = path.join(__dirname, '../public')
 
 app.use(express.static(publicDirectoryPath))
 
